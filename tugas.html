@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore Budget Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/tugas.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <h1 class="title-main">📚 Toko Buku SkyRich</h1>
+                <button id="theme-toggle" class="theme-btn">🌙</button>
+            </div>
+            
+            <div class="balance-card">
+                <div class="balance-info">
+                    <p>💰 Total Pengeluaran Stok</p>
+                    <h2 id="total-balance">Rp 0</h2>
+                </div>
+                <div class="balance-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">📦 Total Item</span>
+                        <span class="stat-value" id="item-count">0/100</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">📊 Rata-rata</span>
+                        <span class="stat-value" id="avg-price">Rp 0</span>
+                    </div>
+                </div>
+                <small id="limit-warning" class="hidden">⚠️ Melebihi Limit Anggaran!</small>
+            </div>
+        </header>
+
+        <main>
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="overview">📊 Overview</button>
+                <button class="tab-btn" data-tab="monthly">📅 Bulanan</button>
+                <button class="tab-btn" data-tab="add">➕ Tambah</button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="overview-tab" class="tab-content active">
+                <section class="chart-section">
+                    <h3>📈 Distribusi Pengeluaran</h3>
+                    <div class="chart-container">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </section>
+
+                <section class="list-section">
+                    <div class="list-header">
+                        <h3>📋 Riwayat Stok</h3>
+                        <div class="list-controls">
+                            <select id="sort-select" class="btn-secondary">
+                                <option value="date">📅 Tanggal</option>
+                                <option value="amount-desc">💰 Harga Tertinggi</option>
+                                <option value="amount-asc">💰 Harga Terendah</option>
+                                <option value="category">🏷️ Kategori</option>
+                            </select>
+                            <button id="clear-btn" class="btn-danger">🗑️ Hapus</button>
+                        </div>
+                    </div>
+                    <div id="transaction-list" class="scrollable-list">
+                        <p class="empty-state">Belum ada data. Tambahkan stok baru!</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Monthly Tab -->
+            <div id="monthly-tab" class="tab-content">
+                <section class="monthly-section">
+                    <h3>📅 Ringkasan Bulanan</h3>
+                    <div class="month-selector">
+                        <button id="prev-month" class="btn-secondary">← Bulan Lalu</button>
+                        <span id="current-month" class="month-display">Mei 2026</span>
+                        <button id="next-month" class="btn-secondary">Bulan Depan →</button>
+                    </div>
+                    <div id="monthly-summary" class="monthly-summary">
+                        <p class="empty-state">Tidak ada data untuk bulan ini</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Add Tab -->
+            <div id="add-tab" class="tab-content">
+                <section class="form-section">
+                    <h3>➕ Tambah Stok Baru</h3>
+                    <form id="expense-form">
+                        <div class="form-group">
+                            <input type="text" id="item-name" placeholder="Nama Buku/Barang" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="amount" placeholder="Harga (Rp) - Min. 20.000 - Max. 999.999.999" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="category-input-group">
+                                <select id="category" required>
+                                    <option value="" disabled selected>Pilih Kategori</option>
+                                    <option value="Fiksi">📖 Buku Fiksi</option>
+                                    <option value="Non-Fiksi">📚 Buku Non-Fiksi</option>
+                                    <option value="Alat Tulis">✏️ Alat Tulis</option>
+                                </select>
+                                <button type="button" id="add-category-btn" class="btn-add-category">+ Kategori</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">✨ Tambah Stok</button>
+                    </form>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal untuk tambah kategori -->
+    <div id="category-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Kategori Baru</h2>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="new-category-name" placeholder="Nama Kategori" maxlength="20">
+                <input type="text" id="new-category-emoji" placeholder="Emoji (opsional)" maxlength="2">
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-category" class="btn-secondary">Batal</button>
+                <button id="save-category" class="btn-primary">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/tugas.js"></script>
+</body>
+</html>
