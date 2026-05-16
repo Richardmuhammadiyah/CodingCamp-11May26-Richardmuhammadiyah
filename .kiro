@@ -1,0 +1,42 @@
+{
+  "version": "1.0.0",
+  "workspace": {
+    "name": "Toko Buku SkyRich",
+    "description": "Aplikasi Tracker Pengeluaran Stok Toko Buku dengan Dashboard Interaktif",
+    "language": "id"
+  },
+  "project": {
+    "type": "web",
+    "framework": "vanilla",
+    "technologies": ["HTML5", "CSS3", "JavaScript", "Chart.js", "Tailwind CSS"]
+  },
+  "settings": {
+    "autoSave": true,
+    "theme": "auto",
+    "fontSize": 14
+  },
+  "extensions": {
+    "recommended": [
+      "ms-vscode.vscode-language-pack-id",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint"
+    ]
+  },
+  "scripts": {
+    "dev": "npx http-server",
+    "build": "echo 'No build needed for vanilla JS'",
+    "test": "echo 'No tests configured'"
+  },
+  "features": {
+    "darkMode": true,
+    "notifications": true,
+    "localStorage": true,
+    "charts": true
+  },
+  "limits": {
+    "maxPrice": 999999999,
+    "minPrice": 20000,
+    "maxItems": 100,
+    "budgetLimit": 1000000
+  }
+}
